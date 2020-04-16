@@ -11,14 +11,15 @@ Build Container
 
 ```
 $ oc new-project custom-fluentd
-$ oc new-build fluentd --strategy=docker --binary=true
+$ oc new-build --name fluentd --strategy=docker --binary=true
+$ oc start-build fluentd --from-dir=.
 ```
 
 Create service account and add a scc to the account
 
 ```
 $ oc create sa fluentd
-# oc adm policy add-scc-to-user anyiid -z fluentd
+$ oc adm policy add-scc-to-user anyuid -z fluentd
 ```
 
 Deploy fluentd and patch the dc.
